@@ -144,7 +144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.element.style.position = 'fixed';
 	            //works as blocker
 	            Object.assign(this.element.style, {
-	                backgroundColor: 'rgba(0,0,0,0.2)',
+	                //backgroundColor: 'rgba(0,0,0,0.2)',
 	                top: '0', left: '0', bottom: '0', right: '0',
 	                width: '100%', height: '100%'
 	            });
@@ -156,7 +156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            Object.assign(this.element.style, {
 	                position: 'absolute',
 	                // backgroundColor: 'transparent',
-	                backgroundColor: 'rgba(0,0,0,0.2)',
+	                // backgroundColor: 'rgba(0,0,0,0.2)',
 	                top: (!parentEl.style.position) ? parentEl.offsetTop + 'px' : '0px',
 	                left: (!parentEl.style.position) ? parentEl.offsetLeft + 'px' : '0px',
 	                width: parentEl.offsetWidth + 'px',
