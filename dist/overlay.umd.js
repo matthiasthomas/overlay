@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -66,9 +66,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NguiOverlayModule = overlay_module_1.NguiOverlayModule;
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -157,8 +157,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                position: 'absolute',
 	                // backgroundColor: 'transparent',
 	                backgroundColor: 'rgba(0,0,0,0.2)',
-	                top: parentEl.offsetTop + 'px',
-	                left: parentEl.offsetLeft + 'px',
+	                top: (!parentEl.style.position) ? parentEl.offsetTop + 'px' : '0px',
+	                left: (!parentEl.style.position) ? parentEl.offsetLeft + 'px' : '0px',
 	                width: parentEl.offsetWidth + 'px',
 	                height: parentEl.offsetHeight + 'px'
 	            });
@@ -250,21 +250,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                break;
 	        }
 	    };
+	    NguiOverlay.TOP = 11;
+	    NguiOverlay.MIDDLE = 12;
+	    NguiOverlay.BOTTOM = 13;
+	    NguiOverlay.LEFT = 21;
+	    NguiOverlay.CENTER = 22;
+	    NguiOverlay.RIGHT = 23;
+	    NguiOverlay.CURSOR = 31;
 	    return NguiOverlay;
 	}());
-	NguiOverlay.TOP = 11;
-	NguiOverlay.MIDDLE = 12;
-	NguiOverlay.BOTTOM = 13;
-	NguiOverlay.LEFT = 21;
-	NguiOverlay.CENTER = 22;
-	NguiOverlay.RIGHT = 23;
-	NguiOverlay.CURSOR = 31;
 	exports.NguiOverlay = NguiOverlay;
 
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -275,45 +275,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var core_1 = __webpack_require__(3);
-	var NguiOverlayManager = NguiOverlayManager_1 = (function () {
+	var NguiOverlayManager = (function () {
 	    function NguiOverlayManager() {
 	    }
+	    NguiOverlayManager_1 = NguiOverlayManager;
 	    NguiOverlayManager.prototype.register = function (overlay) {
 	        NguiOverlayManager_1.overlays[overlay.id] = overlay;
 	        // console.log('overlay.register, OverlayManager.overlays', OverlayManager.overlays);
 	    };
 	    NguiOverlayManager.prototype.open = function (arg, event) {
-	        var overlay = typeof arg === 'string' ? NguiOverlayManager_1.overlays[arg] : arg;
+	        var overlay = this.getOverlayFromArg(arg);
 	        if (!overlay.opened) {
 	            overlay.positionIt(event);
 	            overlay.opened = true;
 	        }
 	    };
 	    NguiOverlayManager.prototype.close = function (arg) {
-	        var overlay = typeof arg === 'string' ? NguiOverlayManager_1.overlays[arg] : arg;
+	        var overlay = this.getOverlayFromArg(arg);
 	        overlay.element.style.display = 'none';
 	        overlay.opened = false;
 	    };
+	    NguiOverlayManager.prototype.toggle = function (arg, event) {
+	        var overlay = this.getOverlayFromArg(arg);
+	        if (overlay.opened)
+	            this.close(overlay);
+	        else
+	            this.open(overlay);
+	    };
+	    NguiOverlayManager.prototype.isOpen = function (arg) {
+	        var overlay = this.getOverlayFromArg(arg);
+	        return overlay.opened;
+	    };
+	    NguiOverlayManager.prototype.getOverlayFromArg = function (arg) {
+	        var overlay = typeof arg === 'string' ? NguiOverlayManager_1.overlays[arg] : arg;
+	        return overlay;
+	    };
+	    //list of overlay objects
+	    NguiOverlayManager.overlays = {};
+	    NguiOverlayManager = NguiOverlayManager_1 = __decorate([
+	        core_1.Injectable()
+	    ], NguiOverlayManager);
 	    return NguiOverlayManager;
+	    var NguiOverlayManager_1;
 	}());
-	//list of overlay objects
-	NguiOverlayManager.overlays = {};
-	NguiOverlayManager = NguiOverlayManager_1 = __decorate([
-	    core_1.Injectable()
-	], NguiOverlayManager);
 	exports.NguiOverlayManager = NguiOverlayManager;
-	var NguiOverlayManager_1;
 
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -357,29 +373,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //console.log('registering overlay', overlay);
 	        this.overlayManager.register(overlay);
 	    };
+	    __decorate([
+	        core_1.Input('ngui-overlay-of'),
+	        __metadata("design:type", String)
+	    ], NguiOverlayDirective.prototype, "overlayOf", void 0);
+	    __decorate([
+	        core_1.Input('ngui-overlay-position'),
+	        __metadata("design:type", String)
+	    ], NguiOverlayDirective.prototype, "overlayPosition", void 0);
+	    NguiOverlayDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',
+	        }),
+	        __metadata("design:paramtypes", [core_1.ViewContainerRef,
+	            overlay_manager_1.NguiOverlayManager])
+	    ], NguiOverlayDirective);
 	    return NguiOverlayDirective;
 	}());
-	__decorate([
-	    core_1.Input('ngui-overlay-of'),
-	    __metadata("design:type", String)
-	], NguiOverlayDirective.prototype, "overlayOf", void 0);
-	__decorate([
-	    core_1.Input('ngui-overlay-position'),
-	    __metadata("design:type", String)
-	], NguiOverlayDirective.prototype, "overlayPosition", void 0);
-	NguiOverlayDirective = __decorate([
-	    core_1.Directive({
-	        selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',
-	    }),
-	    __metadata("design:paramtypes", [core_1.ViewContainerRef,
-	        overlay_manager_1.NguiOverlayManager])
-	], NguiOverlayDirective);
 	exports.NguiOverlayDirective = NguiOverlayDirective;
 
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -398,33 +414,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NguiOverlayModule = (function () {
 	    function NguiOverlayModule() {
 	    }
+	    NguiOverlayModule = __decorate([
+	        core_1.NgModule({
+	            imports: [common_1.CommonModule, forms_1.FormsModule],
+	            declarations: [overlay_directive_1.NguiOverlayDirective],
+	            providers: [overlay_manager_1.NguiOverlayManager],
+	            exports: [overlay_directive_1.NguiOverlayDirective]
+	        })
+	    ], NguiOverlayModule);
 	    return NguiOverlayModule;
 	}());
-	NguiOverlayModule = __decorate([
-	    core_1.NgModule({
-	        imports: [common_1.CommonModule, forms_1.FormsModule],
-	        declarations: [overlay_directive_1.NguiOverlayDirective],
-	        providers: [overlay_manager_1.NguiOverlayManager],
-	        exports: [overlay_directive_1.NguiOverlayDirective]
-	    })
-	], NguiOverlayModule);
 	exports.NguiOverlayModule = NguiOverlayModule;
 	;
 
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

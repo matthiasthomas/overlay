@@ -85,8 +85,8 @@ var NguiOverlay = (function () {
                 position: 'absolute',
                 // backgroundColor: 'transparent',
                 backgroundColor: 'rgba(0,0,0,0.2)',
-                top: parentEl.offsetTop + 'px',
-                left: parentEl.offsetLeft + 'px',
+                top: (!parentEl.style.position) ? parentEl.offsetTop + 'px' : '0px',
+                left: (!parentEl.style.position) ? parentEl.offsetLeft + 'px' : '0px',
                 width: parentEl.offsetWidth + 'px',
                 height: parentEl.offsetHeight + 'px'
             });
@@ -178,14 +178,14 @@ var NguiOverlay = (function () {
                 break;
         }
     };
+    NguiOverlay.TOP = 11;
+    NguiOverlay.MIDDLE = 12;
+    NguiOverlay.BOTTOM = 13;
+    NguiOverlay.LEFT = 21;
+    NguiOverlay.CENTER = 22;
+    NguiOverlay.RIGHT = 23;
+    NguiOverlay.CURSOR = 31;
     return NguiOverlay;
 }());
-NguiOverlay.TOP = 11;
-NguiOverlay.MIDDLE = 12;
-NguiOverlay.BOTTOM = 13;
-NguiOverlay.LEFT = 21;
-NguiOverlay.CENTER = 22;
-NguiOverlay.RIGHT = 23;
-NguiOverlay.CURSOR = 31;
 exports.NguiOverlay = NguiOverlay;
 //# sourceMappingURL=overlay.js.map

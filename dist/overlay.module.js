@@ -15,16 +15,16 @@ var overlay_directive_1 = require("./overlay.directive");
 var NguiOverlayModule = (function () {
     function NguiOverlayModule() {
     }
+    NguiOverlayModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, forms_1.FormsModule],
+            declarations: [overlay_directive_1.NguiOverlayDirective],
+            providers: [overlay_manager_1.NguiOverlayManager],
+            exports: [overlay_directive_1.NguiOverlayDirective]
+        })
+    ], NguiOverlayModule);
     return NguiOverlayModule;
 }());
-NguiOverlayModule = __decorate([
-    core_1.NgModule({
-        imports: [common_1.CommonModule, forms_1.FormsModule],
-        declarations: [overlay_directive_1.NguiOverlayDirective],
-        providers: [overlay_manager_1.NguiOverlayManager],
-        exports: [overlay_directive_1.NguiOverlayDirective]
-    })
-], NguiOverlayModule);
 exports.NguiOverlayModule = NguiOverlayModule;
 ;
 //# sourceMappingURL=overlay.module.js.map

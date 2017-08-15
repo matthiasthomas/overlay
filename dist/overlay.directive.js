@@ -40,22 +40,22 @@ var NguiOverlayDirective = (function () {
         //console.log('registering overlay', overlay);
         this.overlayManager.register(overlay);
     };
+    __decorate([
+        core_1.Input('ngui-overlay-of'),
+        __metadata("design:type", String)
+    ], NguiOverlayDirective.prototype, "overlayOf", void 0);
+    __decorate([
+        core_1.Input('ngui-overlay-position'),
+        __metadata("design:type", String)
+    ], NguiOverlayDirective.prototype, "overlayPosition", void 0);
+    NguiOverlayDirective = __decorate([
+        core_1.Directive({
+            selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',
+        }),
+        __metadata("design:paramtypes", [core_1.ViewContainerRef,
+            overlay_manager_1.NguiOverlayManager])
+    ], NguiOverlayDirective);
     return NguiOverlayDirective;
 }());
-__decorate([
-    core_1.Input('ngui-overlay-of'),
-    __metadata("design:type", String)
-], NguiOverlayDirective.prototype, "overlayOf", void 0);
-__decorate([
-    core_1.Input('ngui-overlay-position'),
-    __metadata("design:type", String)
-], NguiOverlayDirective.prototype, "overlayPosition", void 0);
-NguiOverlayDirective = __decorate([
-    core_1.Directive({
-        selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef,
-        overlay_manager_1.NguiOverlayManager])
-], NguiOverlayDirective);
 exports.NguiOverlayDirective = NguiOverlayDirective;
 //# sourceMappingURL=overlay.directive.js.map
