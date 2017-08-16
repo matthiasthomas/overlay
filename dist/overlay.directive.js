@@ -34,6 +34,7 @@ var NguiOverlayDirective = (function () {
         var positionStr = this.overlayPosition;
         var overlay = new overlay_1.NguiOverlay(this.overlayEl, {
             id: this.el.id,
+            backgroundColor: this.backgroundColor,
             windowOverlay: this.overlayOf == "window",
             position: positionStr
         });
@@ -48,6 +49,10 @@ var NguiOverlayDirective = (function () {
         core_1.Input('ngui-overlay-position'),
         __metadata("design:type", String)
     ], NguiOverlayDirective.prototype, "overlayPosition", void 0);
+    __decorate([
+        core_1.Input('ngui-overlay-background-color'),
+        __metadata("design:type", String)
+    ], NguiOverlayDirective.prototype, "backgroundColor", void 0);
     NguiOverlayDirective = __decorate([
         core_1.Directive({
             selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',

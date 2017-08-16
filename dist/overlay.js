@@ -39,10 +39,15 @@ var NguiOverlay = (function () {
         options = options || {};
         this.id = options.id;
         this.type = options.type;
+        this.backgroundColor = options.backgroundColor;
         if (!this.id) {
             throw "Invalid overlay id";
         }
-        this.element = el; // overlay wrapper element with table dsplay
+        this.element = el; // overlay wrapper element with table dsplay\
+        this.element.style.zIndex = "2";
+        if (this.backgroundColor) {
+            this.element.style.backgroundColor = this.backgroundColor;
+        }
         this.windowOverlay = options.windowOverlay;
         this.position = this.getPositionProperty(options.position || 'center center');
     }
@@ -72,7 +77,7 @@ var NguiOverlay = (function () {
             this.element.style.position = 'fixed';
             //works as blocker
             Object.assign(this.element.style, {
-                //backgroundColor: 'rgba(0,0,0,0.2)',
+                // backgroundColor: 'rgba(0,0,0,0.2)',
                 top: '0', left: '0', bottom: '0', right: '0',
                 width: '100%', height: '100%'
             });

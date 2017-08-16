@@ -10,6 +10,7 @@ export class NguiOverlayDirective {
 
   @Input('ngui-overlay-of') overlayOf: string;
   @Input('ngui-overlay-position') overlayPosition: string;
+  @Input('ngui-overlay-background-color') backgroundColor: string;
 
   el: HTMLElement;        // the element this directive is assigned to
   overlayEl: HTMLElement; // <ngui-overlay> in <ngui-overlay>this.el</ngui-overlay>
@@ -39,10 +40,10 @@ export class NguiOverlayDirective {
 
   //create Overlay object,  then register this element to overlayManager
   registerToOverlayManager() {
-    let positionStr: string =  this.overlayPosition;
-
+    let positionStr: string = this.overlayPosition;
     let overlay = new NguiOverlay(this.overlayEl, {
       id: this.el.id,
+      backgroundColor: this.backgroundColor,
       windowOverlay: this.overlayOf == "window",
       position: positionStr
     });

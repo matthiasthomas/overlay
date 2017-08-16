@@ -111,10 +111,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options = options || {};
 	        this.id = options.id;
 	        this.type = options.type;
+	        this.backgroundColor = options.backgroundColor;
 	        if (!this.id) {
 	            throw "Invalid overlay id";
 	        }
-	        this.element = el; // overlay wrapper element with table dsplay
+	        this.element = el; // overlay wrapper element with table dsplay\
+	        this.element.style.zIndex = "2";
+	        if (this.backgroundColor) {
+	            this.element.style.backgroundColor = this.backgroundColor;
+	        }
 	        this.windowOverlay = options.windowOverlay;
 	        this.position = this.getPositionProperty(options.position || 'center center');
 	    }
@@ -144,7 +149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.element.style.position = 'fixed';
 	            //works as blocker
 	            Object.assign(this.element.style, {
-	                //backgroundColor: 'rgba(0,0,0,0.2)',
+	                // backgroundColor: 'rgba(0,0,0,0.2)',
 	                top: '0', left: '0', bottom: '0', right: '0',
 	                width: '100%', height: '100%'
 	            });
@@ -367,6 +372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var positionStr = this.overlayPosition;
 	        var overlay = new overlay_1.NguiOverlay(this.overlayEl, {
 	            id: this.el.id,
+	            backgroundColor: this.backgroundColor,
 	            windowOverlay: this.overlayOf == "window",
 	            position: positionStr
 	        });
@@ -381,6 +387,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        core_1.Input('ngui-overlay-position'),
 	        __metadata("design:type", String)
 	    ], NguiOverlayDirective.prototype, "overlayPosition", void 0);
+	    __decorate([
+	        core_1.Input('ngui-overlay-background-color'),
+	        __metadata("design:type", String)
+	    ], NguiOverlayDirective.prototype, "backgroundColor", void 0);
 	    NguiOverlayDirective = __decorate([
 	        core_1.Directive({
 	            selector: '[ngui-overlay], [ngui-overlay-of], [ngui-overlay-position]',
